@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movies</title>
+	<link rel="stylesheet" type="text/css" href="./css/ee4717.css">
+	<script type="text/javascript" src='./scripts/globalinit.js'></script>
+</head>
+<script type="text/javascript">
+	const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+	const cinemas=['amk','jem'];
+	const movie="Crazy Rich Asian (PG13)"
+	const movieImage="./img/crazyrichasian.jpg"
+	var userSelection=[];
+	
+	function generateUserSelection(movie,movieImage){
+		for(let i=0;i<cinemas.length;i++){
+			userSelection[cinemas[i]]={"day":"0","date":"","cinema":cinemas[i],"time":"","movie":movie,"movieImage":movieImage,"tickets":""};
+		}
+	}
+	generateUserSelection(movie,movieImage);
+	window.onload=function(){
+		console.log('javascript functioning');
+		for(let x=0;x<cinemas.length;x++){
+			for(let i=0;i<7;i++){
+				var element = document.getElementById(cinemas[x]+i);
+				var date = addDays(i);
+				//Generate timing tables
+				if(i==0){
+					element.innerHTML='Today<br>'+ date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
+					//Update user's selection
+					userSelection[String(cinemas[x])].date=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
+					userSelection[String(cinemas[x])].day= date.getDay();
+					userSelection[String(cinemas[x])].cinema=String(cinemas[x]);
+					//User's selection end
+
+				}else{
+					element.innerHTML=days[date.getDay()]+'<br>'+ date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();	
+				}
+			}	
+		}
+		
+	}	
+	function selectedDay(element){
+		let selectedCinema = element.id.slice(0,element.id.length-1);
+		let date = addDays(element.id.slice(element.id.length-1,element.id.length))
+		//Update user's selection
+		userSelection[selectedCinema].date=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
+		userSelection[selectedCinema].day= date.getDay();
+		userSelection[selectedCinema].cinema=selectedCinema;
+		//User's selection end
+		console.log(userSelection);
+		for(let i=0;i<7;i++){
+			document.getElementById(selectedCinema+i).classList.remove('showtimetd');
+			document.getElementById(selectedCinema+i).classList.add('showtimetr');
+		}
+
+		element.classList.add('showtimetd');
+	}
+	function selectedTime(cinema,time){
+		userSelection[cinema].time=time;
+		console.log(userSelection[cinema]);
+		localStorage.setItem("userSelection",JSON.stringify(userSelection[cinema]));
+		window.location.href="./checkout.html";
+	}
+	function addDays(days){
+		const date = new Date();
+		date.setDate(date.getDate() + parseInt(days));
+		return date;
+	}
+	
+</script>
+<script type="text/javascript" src='./scripts/globalinit.js'></script>
+<body>
+	<div class="clearfix">
+		<header>
+			<img src="./img/logo.jpg" style="width:80%;height:100%;">
+		</header>
+		<nav style="text-align:right;padding-right:0px">
+			<a href="./index.html" class="menu">Home</a>
+			<a href="./movies.html" class="menu">Movies</a>
+			<a href="./promotions.html" class="menu">Promotions</a>
+			<a href="./cart" class="menu" > Cart</a>
+			<span class="account-box" style="float:right;">
+				<span id='account' class="menu" style="padding-right:0px"> 
+					Account
+				</span>
+				<span id="account-option" class="account-option" style="width:100%;text-align: center;">
+				</span>	
+			</span>			
+			<span class="dot" id="dot">0</span>
+		</nav>
+	</div>
+	<div class="container clearfix" style="margin-bottom:10px">
+		<center>
+			<select id="SelectMovie" class="menu-select" onchange="onClick(1,'loc_address', 'MOVIE_ID', this, ['CINEMA_ID','CINEMA'],'OPTION','SelectCinema')" style="width:40%;margin-right:1.25%">
+				<option value="" disabled selected>Select movie</option>
+			</select>
+			<select id="SelectCinema" class="menu-select" onchange="onClick(2,'loc_address', 'CINEMA_ID', this, ['DAY','DAY'],'OPTION', 'SelectDate')" style="width:15%;margin-right:1.25%">
+				<option value="" disabled selected>Select cinema</option>
+			</select>
+			<select id="SelectDate" class="menu-select" onchange="onClick(3,'loc_address', 'DAY', this, ['TIME','TIMESTAMP'],'OPTION', 'SelectTime')" style="width:15%;margin-right:1.25%">
+				<option value="" disabled selected>Select day</option>
+			</select>
+			<select id="SelectTime" class="menu-select" onchange="onClick(4,'loc_address', 'TIME', this, ['UNIQUE_ID','UNIQUE_ID'], 'BUTTON', 'BOOK')" style="width:15%;margin-right:1.25%">
+				<option value="" disabled selected>Select time</option>
+			</select>
+			<input id="BOOK" type="button" class="teal-button" value="Book now" onclick="storeSend()" style="width:10%">
+		</center>
+	</div>
+	<span class="one-third" style="height:600px">
+		<img src="./img/CRAZY RICH ASIANS.jpg" style="width:100%;height:100%;">
+	</span>
+	<span class="two-third" style="height:600px;padding:10px;">
+		<h1 style="color:#008080">Crazy Rich Asian (PG13)</h1>
+		<hr>
+		<dl>
+			<dt style="margin-bottom:5px">CAST</dt>
+			<dd>Gemma Chan , Henry Golding , Constance Wu, Michelle Yeoh</dd>
+			<br>
+			<dt style="margin-bottom:5px">DIRECTOR</dt>
+			<dd>Jon M. Chu</dd>
+			<br>
+			<dt style="margin-bottom:5px">SYNOPSIS</dt>
+			<dd>Jon M. Chu (Now You See Me 2) directed the contemporary romantic comedy Crazy Rich 	   Asians, based on the acclaimed worldwide bestseller by Kevin Kwan.
+
+				The story follows native New Yorker Rachel Chu (Constance Wu) as she accompanies her longtime boyfriend, Nick Young (Henry Golding), to his best friend’s wedding in Singapore. Excited about visiting Asia for the first time but nervous about meeting Nick’s family, Rachel is unprepared to learn that Nick has neglected to mention a few key details about his life.
+
+			 	It turns out that he is not only the scion of one of the country’s wealthiest families but also one of its most sought-after bachelors. Being on Nick’s arm puts a target on Rachel’s back, with jealous socialites and, worse, Nick’s own disapproving mother (Michelle Yeoh) taking aim. And it soon becomes clear that while money can’t buy love, it can definitely complicate things.</dd>
+		</dl>
+	</span>
+	<span class="full" style="height:400px;">
+		<h2>SHOWTIMES</h2>
+		<table class="showtimetable" cellpadding="10px">
+			<tr class="showtimetr">
+				<th>AMK Hub</th>
+				<th class='showtimetd'id='amk0' onclick="selectedDay(this)"></th>
+				<th id='amk1' onclick="selectedDay(this)"></th>
+				<th id='amk2' onclick="selectedDay(this)"></th>
+				<th id='amk3' onclick="selectedDay(this)"></th>
+				<th id='amk4' onclick="selectedDay(this)"></th>
+				<th id='amk5' onclick="selectedDay(this)"></th>
+				<th id='amk6' onclick="selectedDay(this)"></th>
+			</tr>
+			<tr>
+				<td style="width:200px">
+					Dolby Digital<br>
+					English with Chinese subtitles
+				</td>
+				<td class='showtimetd' onclick="selectedTime('amk','10:00')">10:00</td>
+				<td class='showtimetd' onclick="selectedTime('amk','12:00')">12:00</td>
+				<td class='showtimetd' onclick="selectedTime('amk','14:00')">14:00</td>
+				<td class='showtimetd' onclick="selectedTime('amk','16:00')">16:00</td>
+				<td class='showtimetd' onclick="selectedTime('amk','18:00')">18:00</td>
+				<td class='showtimetd' onclick="selectedTime('amk','20:00')">20:00</td>
+				<td class='showtimetd' onclick="selectedTime('amk','22:00')">22:00</td>
+			</tr>
+		</table>
+		<br>
+		<table class="showtimetable" cellpadding="10px">
+			<tr class="showtimetr">
+				<th>JEM</th>
+				<th class='showtimetd' id='jem0' onclick="selectedDay(this)"></th>
+				<th id='jem1' onclick="selectedDay(this)"></th>
+				<th id='jem2' onclick="selectedDay(this)"></th>
+				<th id='jem3' onclick="selectedDay(this)"></th>
+				<th id='jem4' onclick="selectedDay(this)"></th>
+				<th id='jem5' onclick="selectedDay(this)"></th>
+				<th id='jem6' onclick="selectedDay(this)"></th>
+			</tr>
+			<tr>
+				<td style="width:200px">
+					Dolby Atmos<br>
+					English only (No Subtitle)
+				</td>
+				<td class='showtimetd' onclick="selectedTime('jem','10:00')">10:00</td>
+				<td class='showtimetd' onclick="selectedTime('jem','12:00')">12:00</td>
+				<td class='showtimetd' onclick="selectedTime('jem','14:00')">14:00</td>
+				<td class='showtimetd' onclick="selectedTime('jem','16:00')">16:00</td>
+				<td class='showtimetd' onclick="selectedTime('jem','18:00')">18:00</td>
+				<td class='showtimetd' onclick="selectedTime('jem','20:00')">20:00</td>
+				<td class='showtimetd' onclick="selectedTime('jem','22:00')">22:00</td>
+			</tr>
+		</table>
+	</span>
+	<footer>
+		<center>
+			<label style="border-right:1px solid black;margin-right:10px">
+				Careers
+			</label>
+			<label style="border-right:1px solid black;margin-right:10px">
+				FAQ
+			</label>
+			<label>
+				Contact us
+			</label>	
+			<br>
+			<label>
+				Copyright to this website belongs to MyMovie Pte Ltd. The contents of this website shall not be reproduced in any form in whole or in part. We reserve all rights.
+			</label>
+		</center>
+	</footer>
+</body>
+</html>

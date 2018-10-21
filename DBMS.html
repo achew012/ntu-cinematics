@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <title>Page Title</title>
+  </head>
+
+
+  <body>
+    <div id="topcontainer" style="float:top; width: 80%; height: 20%; margin-right: auto; margin-left: auto; text-align: center; background-color: #2F4F4F">
+        <select id="SelectMovie" name="selectservice" onclick="showBox(this.value);" class="menu-select" style="margin-right: auto; margin-left: auto; margin-top:40px;">
+            <option value="titles">Insert New Movie Title</option>
+            <option value="shows">Insert New Movie Showtime</option>
+        </select>
+    </div>
+    <div id="bottomcontainer" style="float:bottom; width: 80%; height: 80%; margin-right: auto; margin-left: auto; text-align: center; background-color: #696969; position: relative; z-index: 0;">     
+      <div id="insertmovie" style="visibility:hidden; width: 60%; height: 80%; background-color: #C0C0C0; position: absolute; z-index: 2; top:20px; left: 20%; right: 20%;"> 
+        <form style="text-align: center;">
+          <table style="display: inline-block; width:70%">
+            <tr>
+              <th colspan="2">
+                <label style="text-align: center;"> INSERT MOVIE TITLE </label>
+              </th>
+            </tr>
+            <tr>
+                <td><label > TABLENAME </label> <br></td>
+                <td><input type="text" name="tablename" id="tablename" size="40" value="current_movies" onblur="onpreview();" required=""></td>
+            </tr>
+            <tr>
+                <td><label > MOVIE_ID </label> <br></td>
+                <td><input type="text" name="movieid" id="movieid" size="40" value="" onblur="onpreview();" required=""></td>
+            </tr>
+            <tr>
+                <td><label > MOVIE_NAME </label> <br></td>
+                <td><input type="text" name="moviename" id="moviename" size="40" value="" onblur="onpreview();" required=""></td>
+            </tr>
+            <tr>
+                <td colspan="2"><textarea id="output" cols="55" rows="3" readonly=""></textarea></td>
+            </tr>
+
+              <td><input type="submit" onclick="sendData('titles')"  value="Insert"></td>
+            </tr>
+          </table>  
+        </form>
+      </div>
+
+      <div id="insertshowtime" style="visibility:hidden; width: 60%; height: 80%; background-color: #C0C0C0; position: absolute; z-index: 1; top:20px; left: 20%; right: 20%; overflow: hidden">
+        <form style="text-align: center;">
+          <table style="display: inline-block; width:80%;">
+            <tr>
+              <th colspan="2">
+                <label style="text-align: center;"> INSERT SHOWTIME SCREENING </label>
+              </th>
+            </tr>
+            <tr>
+                <td><label > TABLENAME</label> <br></td>
+                <td><input type="text" name="tablename" id="tablename" size="50" value="loc_address" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > MOVIE_ID </label> <br></td>
+                <td><input type="text" name="movieid" id="movieid2" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > MOVIE_NAME </label> <br></td>
+                <td><input type="text" name="moviename" id="moviename2" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > CINEMA_ID </label> <br></td>
+                <td><input type="text" name="cinemaid" id="cinemaid" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > CINEMA </label> <br></td>
+                <td><input type="text" name="cinema" id="cinema" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > DATE </label> <br></td>
+                <td><input type="text" name="date" id="date" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > TIME </label> <br></td>
+                <td><input type="text" name="time" id="time" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td><label > UNIQUE_ID </label> <br></td>
+                <td><input type="text" name="tablename" id="tablename" size="50" value="" onblur="onshowtime()" required="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><textarea id="output2" cols="65" rows="3" readonly=""></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" onclick="sendData('shows')" value="Insert"></td>
+            </tr>
+          </table>  
+        </form> 
+      </div>
+    </div>
+
+  </body>
+  <script type="text/javascript">  
+
+    var preview = {
+      'tablename': document.getElementById('tablename').value,
+      'movieid':  '',
+      'moviename': '',
+      'setid': function (id){
+        this.movieid=id;
+      },
+      'setname': function (name){
+        this.moviename=name;
+      },
+      'getstring': function(){
+        string = "INSERT INTO " + this.tablename + " (MOVIE_ID, MOVIE_NAME') VALUES ('" + this.movieid + "','" + this.moviename + "');";
+        return string;
+      }
+    };
+
+    var showtime = {
+      'tablename': document.getElementById('tablename').value,
+      'movieid':  '',
+      'moviename': '',
+      'cinemaid': '',
+      'cinema': '',
+      'date': '',
+      'time': '',
+      'uniqueid': '',
+      'setid': function (id){
+        this.movieid=id;
+      },
+      'setname': function (name){
+        this.moviename=name;
+      },
+      'getstring': function(){
+        string = "INSERT INTO " + this.tablename + " (MOVIE_ID, MOVIE_NAME, CINEMA_ID, CINEMA, DATE, TIME, UNIQUE_ID) VALUES ('" + this.movieid + "','" + this.moviename + "','" + this.cinemaid+ "','" + this.cinema + "','" + this.date + "','" + this.time + "','" + this.uniqueid + "');";
+        return string;
+      }
+    };
+
+    function showBox(type){
+      console.log(type);
+      if (type=='titles'){
+        document.getElementById('insertshowtime').style.visibility = "hidden";
+        document.getElementById('insertmovie').style.visibility = "visible";
+      }
+      if (type=='shows'){
+        document.getElementById('insertshowtime').style.visibility = "visible";
+        document.getElementById('insertmovie').style.visibility = "hidden";
+      }
+    }
+    
+    function onpreview(){
+      var movieid=document.getElementById('movieid').value;
+      var moviename=document.getElementById('moviename').value;
+      preview.setid(movieid);
+      preview.setname(moviename);
+      document.getElementById('output').value=preview.getstring();
+    }
+
+    function onshowtime(){
+      var movieid=document.getElementById('movieid2').value;
+      var moviename=document.getElementById('moviename2').value;
+      var cinemaid=document.getElementById('cinemaid').value;
+      var cinema=document.getElementById('cinema').value;
+      var date=document.getElementById('date').value;
+      var time=document.getElementById('time').value;
+      var uniqueid=document.getElementById('time').value;
+      showtime.movieid=movieid;
+      showtime.moviename=moviename;
+      showtime.cinemaid= cinemaid;
+      showtime.cinema=cinema;
+      showtime.date=date;
+      showtime.time=time;
+      showtime.uniqueid=uniqueid;
+      document.getElementById('output2').value=showtime.getstring();
+
+    }
+
+    function sendData(type){
+    if (type=='titles') {
+      var string=preview.getstring();
+    }
+    if (type=='shows') {
+      var string=showtime.getstring();
+    }
+    var ajax = new XMLHttpRequest();
+    let datainput =  new FormData();
+    var method = "POST";
+    var url = "./php/database.php";
+    var asynchronous = true;
+    // Add data into packet
+    datainput.append("string", string);
+    //For posting
+    ajax.open(method, url, asynchronous); 
+    ajax.send(datainput);     
+    }
+
+  </script>
+</html>

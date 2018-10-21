@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movies</title>
+</head>
+<script type="text/javascript">
+	window.onload= function(){
+		redirect= document.getElementById('redirect');
+		oldTime=new Date();
+		const countdown= setInterval(function(){
+			newTime = new Date();
+			redirect.innerHTML="You will be redicted in...."+(5-parseInt((newTime-oldTime)/1000));
+			if((newTime-oldTime)>=5000){
+				clearInterval(countdown);
+				location.href="./index.html";
+				console.log("intervalcleared");
+			}
+		},1000)
+	}
+
+</script>
+<body>
+	<div style="border:1px solid grey;width:20%;height:450px;padding:10px;margin:auto">
+		<center>
+			<h1>Payment Successful</h1>
+			<img src="./img/payment-success.png"><br>
+			<label style="font-size:20px">E-ticket has been sent to:</label><br>
+			<label style="font-size:15px">username@hotmail.com</label><br><br>
+			<a href="./index.html" id='redirect' style="font-size:15px">You will be redicted in....5</a>
+		</center>	
+	</div>
+	
+</body>
+</html>

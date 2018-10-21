@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movies</title>
+	<link rel="stylesheet" type="text/css" href="./css/ee4717.css">
+	<script type="text/javascript" src='./scripts/login.js'></script>
+</head>
+<body>
+	<div class="clearfix">
+		<header>
+			<img src="./img/logo.jpg" style="width:80%;height:100%;">
+		</header>
+		<nav style="text-align: right">
+				<a href="./index.html" class="menu">Home</a>
+				<a href="./showtimes.html" class="menu">Show Times</a>
+				<a href="./movies.html" class="menu">Movies</a>
+				<a href="./promotions.html" class="menu">Promotions</a>
+				<a href="./cinemas" class="menu">Cinema</a>
+				<a href="./login.html" class="menu">Account</a>
+		</nav>
+	</div>
+	<div class="container padding">
+		<center>
+		<select class="margin-right menu-select" style="width:35%">
+			<option value="" disabled selected>Select movie</option>
+		</select>
+		<select class="margin-right menu-select" style="width:15%">
+			<option value="" disabled selected>Select cinema</option>
+		</select>
+		<select class="margin-right menu-select" style="width:15%">
+			<option value="" disabled selected>Select day</option>
+		</select>
+		<select class="margin-right menu-select" style="width:15%">
+			<option value="" disabled selected>Select time</option>
+		</select>
+		<input type="button" class="teal-button" value="Book now" style="width:14%">
+		</center>
+	</div>
+	<span class="two-third" style="height:600px">
+		<img src="./img/minions.jpg" style="height:100%;width:100%">
+	</span>
+	<span class="one-third" style="height:600px">
+		<div style="width:90%;padding:10px;border:1px solid black;margin:auto;border-radius:5px;height:400px">
+			<label>Email</label><br>
+			<input id = "email" type="text" style="width:100%;height:25px;" class="teal-input" required><br>
+			<label>Password</label><br>
+			<input id = "password" type="password" style="width:100%;height:25px;" class="teal-input" required><br><br>
+			<input type="button" value="Login" class="teal-button" onclick="onlogin()" style="margin-top:10px;width:100%"><br>
+			<a href="./register.html"><input type="button" value="Register" class="teal-border-button" style="margin-top:10px;width:100%"></a><br><br><br>
+			<center>
+				<a href="">Forgotten password?</a>	
+				<hr>
+				<br>
+				<input type="button" class="teal-border-button" Value="Checkout Anonymously" style="width:80%;">
+			</center>
+		</div>
+		
+	</span>
+	<footer>
+		<center>
+			<label style="border-right:1px solid black;margin-right:10px">
+				Careers
+			</label>
+			<label style="border-right:1px solid black;margin-right:10px">
+				FAQ
+			</label>
+			<label>
+				Contact us
+			</label>	
+			<br>
+			<label>
+				Copyright to this website belongs to MyMovie Pte Ltd. The contents of this website shall not be reproduced in any form in whole or in part. We reserve all rights.
+			</label>
+		</center>
+	</footer>
+</body>
+</html>
